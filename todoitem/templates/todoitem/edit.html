@@ -1,0 +1,13 @@
+{% block content %}
+    <h3>Editing Task "{{ item.description }}"</h3>
+    <form action="{% url 'todoitem.edit' folder.id item.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" id="item_name" name="item_name" value="{{ item.description }}">
+        <p>
+            <input type="submit" value="Save">
+            <a href="{% url 'todoitem.index' folder.id %}">
+                Cancel
+            </a>
+        </p>
+    </form>
+{% endblock %}

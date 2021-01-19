@@ -1,0 +1,33 @@
+{% block content %}
+    <h3>Folders</h3>
+    {% if folders %}
+        <ul>
+            {% for folder in folders %}
+                <li>
+                    {{ folder.description }}
+                    <a href="{% url 'todoitem.index' folder.id %}">View items</a>
+                    <a href="{% url 'todofolder.delete' folder.id %}">Remove</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no folders, create one!</p>
+    {% endif %}
+    <form action="{% url 'todofolder.create' %}" method="post">
+        {% csrf_token %}
+        <input type="text" id="folder_name" name="folder_name" placeholder="New Folder">
+        <input id="send-button" type="submit" value="Add" disabled>
+    </form>
+    <script>
+        var input = document.querySelector("#folder_name");
+        input.addEventListener("input", function() {
+            var text = input.value;
+            var button = document.querySelector("#send-button");
+            if (text) {
+                button.removeAttribute("disabled");
+            } else {
+                button.setAttribute("disabled", "");
+            }
+        });
+    </script>
+{% endblock %}

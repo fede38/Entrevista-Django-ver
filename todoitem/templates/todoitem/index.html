@@ -1,0 +1,45 @@
+{% block content %}
+    <h3><a href="{% url 'todofolder.index' %}">Folders</a> > {{ folder.description }}</h3>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <form action="{% url 'todoitem.check' folder.id item.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="checkbox" class="checkbox_item" id="item_check" name="item_check" {{  item.checked|yesno:"checked," }}>
+                    </form>
+                    {{ item.description }}
+                    <a href="{% url 'todoitem.edit' folder.id item.id %}">Edit</a>
+                    <a href="{% url 'todoitem.delete' folder.id item.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no items in this folder, add one!</p>
+    {% endif %}
+    <form action="{% url 'todoitem.create' folder.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" id="item_name" name="item_name" placeholder="New Task">
+        <input id="send-button" type="submit" value="Add" disabled>
+    </form>
+    <script>
+        var input = document.querySelector("#item_name");
+        input.addEventListener("input", function() {
+            var text = input.value;
+            var button = document.querySelector("#send-button");
+            if (text) {
+                button.removeAttribute("disabled");
+            } else {
+                button.setAttribute("disabled", "");
+            }
+        });
+
+        var item_check = document.querySelectorAll(".checkbox_item");
+        for(let i = 0; i < item_check.length; i++) {
+            item_check[i].addEventListener("change", function() {
+                var check_form = this.parentElement;
+                check_form.submit();
+            });
+        }
+    </script>
+{% endblock %}
