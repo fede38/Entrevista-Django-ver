@@ -1,7 +1,7 @@
 #!/bin/bash
 
-virtualenv -p python3
-source ./bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+python3 -m venv venv
+source ./venv/bin/activate
+pip3 install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py runserver
