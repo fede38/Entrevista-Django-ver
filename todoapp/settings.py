@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todofolder',
     'todoitem',
+    'authentication',
 ]
 
 MIDDLEWARE = [

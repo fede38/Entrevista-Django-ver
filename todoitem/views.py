@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from todofolder.models import ToDoFolder
 from .models import ToDoItem
+from todoapp.helpers import login_required
 
 
+@login_required
 def index(request, id_):
     folder = ToDoFolder.objects.get(id=id_)
     items = folder.todoitem_set.all()
     return render(request, 'todoitem/index.html', {'items': items, 'folder': folder})
 
 
+@login_required
 def create(request, id_):
     folder = ToDoFolder.objects.get(id=id_)
     item = ToDoItem(description=request.POST["item_name"])
@@ -17,6 +20,7 @@ def create(request, id_):
     return redirect('todoitem.index', id_=id_)
 
 
+@login_required
 def check(request, id_, id_2):
     item = ToDoItem.objects.get(id=id_2)
     try:
@@ -29,6 +33,7 @@ def check(request, id_, id_2):
     return redirect('todoitem.index', id_=id_)
 
 
+@login_required
 def edit(request, id_, id_2):
     folder = ToDoFolder.objects.get(id=id_)
     item = ToDoItem.objects.get(id=id_2)
