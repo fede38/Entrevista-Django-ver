@@ -1,0 +1,18 @@
+[
+  {
+    "model": "authentication.usuario",
+    "pk": 1,
+    "fields": {
+      "usuario": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "model": "authentication.usuario",
+    "pk": 2,
+    "fields": {
+      "usuario": "mod",
+      "password": "mod"
+    }
+  }
+]

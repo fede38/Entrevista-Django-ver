@@ -9,3 +9,9 @@ Como usar:
 - Darle permisos de ejecucion a start.sh con <code>chmod u+x start.sh</code>
 - Correr el script con <code>./start.sh</code>
 - Si todo sale bien deberia quedar corriendo la aplicacion en localhost:8000
+
+
+Datos de logueo:
+- Dos usuarios:
+- Username: admin, password: admin
+- Username: mod, password: mod
