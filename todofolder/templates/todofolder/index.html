@@ -1,23 +1,33 @@
+{% extends "base.html" %}
+
 {% block content %}
-    <h3>Folders</h3>
-    {% if folders %}
-        <ul>
-            {% for folder in folders %}
-                <li>
-                    {{ folder.description }}
-                    <a href="{% url 'todoitem.index' folder.id %}">View items</a>
-                    <a href="{% url 'todofolder.delete' folder.id %}">Remove</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no folders, create one!</p>
-    {% endif %}
-    <form action="{% url 'todofolder.create' %}" method="post">
-        {% csrf_token %}
-        <input type="text" id="folder_name" name="folder_name" placeholder="New Folder">
-        <input id="send-button" type="submit" value="Add" disabled>
-    </form>
+    <div class="row justify-content-center">
+        <div>
+            <h3>Folders</h3>
+            {% if folders %}
+                <ul class="list-group mb-2">
+                    {% for folder in folders %}
+                        <li class="list-group-item">
+                            {{ folder.description }}
+                            <a href="{% url 'todoitem.index' folder.id %}">View items</a>
+                            <a href="{% url 'todofolder.delete' folder.id %}">Remove</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no folders, create one!</p>
+            {% endif %}
+            <form action="{% url 'todofolder.create' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input class="form-control" type="text" id="folder_name" name="folder_name" placeholder="New Folder">
+                    <span class="input-group-btn">
+                        <input id="send-button" class="btn btn-primary" type="submit" value="Add" disabled>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
         var input = document.querySelector("#folder_name");
         input.addEventListener("input", function() {

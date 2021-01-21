@@ -3,8 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>To Do App</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

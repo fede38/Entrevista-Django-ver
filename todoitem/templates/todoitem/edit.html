@@ -1,13 +1,19 @@
+{% extends "base.html" %}
+
 {% block content %}
-    <h3>Editing Task "{{ item.description }}"</h3>
-    <form action="{% url 'todoitem.edit' folder.id item.id %}" method="post">
-        {% csrf_token %}
-        <input type="text" id="item_name" name="item_name" value="{{ item.description }}">
-        <p>
-            <input type="submit" value="Save">
-            <a href="{% url 'todoitem.index' folder.id %}">
-                Cancel
-            </a>
-        </p>
-    </form>
+    <div class="row justify-content-center">
+        <div>
+            <h3>Editing Task "{{ item.description }}"</h3>
+            <form action="{% url 'todoitem.edit' folder.id item.id %}" method="post">
+                {% csrf_token %}
+                <input class="form-control mb-2" type="text" id="item_name" name="item_name" value="{{ item.description }}">
+                <p>
+                    <input class="btn btn-primary" type="submit" value="Save">
+                    <a class="btn btn-secondary" href="{% url 'todoitem.index' folder.id %}">
+                        Cancel
+                    </a>
+                </p>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -1,27 +1,37 @@
+{% extends "base.html" %}
+
 {% block content %}
-    <h3><a href="{% url 'todofolder.index' %}">Folders</a> > {{ folder.description }}</h3>
-    {% if items %}
-        <ul>
-            {% for item in items %}
-                <li>
-                    <form action="{% url 'todoitem.check' folder.id item.id %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <input type="checkbox" class="checkbox_item" id="item_check" name="item_check" {{  item.checked|yesno:"checked," }}>
-                    </form>
-                    {{ item.description }}
-                    <a href="{% url 'todoitem.edit' folder.id item.id %}">Edit</a>
-                    <a href="{% url 'todoitem.delete' folder.id item.id %}">Delete</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no items in this folder, add one!</p>
-    {% endif %}
-    <form action="{% url 'todoitem.create' folder.id %}" method="post">
-        {% csrf_token %}
-        <input type="text" id="item_name" name="item_name" placeholder="New Task">
-        <input id="send-button" type="submit" value="Add" disabled>
-    </form>
+    <div class="row justify-content-center">
+        <div>
+            <h3><a href="{% url 'todofolder.index' %}">Folders</a> > {{ folder.description }}</h3>
+            {% if items %}
+                <ul class="list-group mb-2">
+                    {% for item in items %}
+                        <li class="list-group-item">
+                            <form action="{% url 'todoitem.check' folder.id item.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="checkbox" class="checkbox_item" id="item_check" name="item_check" {{  item.checked|yesno:"checked," }}>
+                            </form>
+                            {{ item.description }}
+                            <a href="{% url 'todoitem.edit' folder.id item.id %}">Edit</a>
+                            <a href="{% url 'todoitem.delete' folder.id item.id %}">Delete</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no items in this folder, add one!</p>
+            {% endif %}
+            <form action="{% url 'todoitem.create' folder.id %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="item_name" style="width: calc(100% - 55.6px);" name="item_name" placeholder="New Task">
+                    <span class="input-group-btn">
+                        <input class="btn btn-primary" id="send-button" type="submit" value="Add" disabled>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
         var input = document.querySelector("#item_name");
         input.addEventListener("input", function() {
